@@ -1,0 +1,6 @@
+#spring:
+  #r2dbc:
+    #username: myuser
+    #password: admin
+    #url: jdbc:postgresql://localhost:5432/postgres
+    #url: r2dbc:postgresql://localhost:5432/my_db_reactive
