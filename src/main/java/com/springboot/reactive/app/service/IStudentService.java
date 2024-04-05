@@ -7,9 +7,9 @@ import io.reactivex.Maybe;
 import io.reactivex.Single;
 
 public interface IStudentService {
-    Single<Student> createStudent(Student student);
+    Single<Student> createStudent(Student requestStudent);
     Flowable<Student> getAllStudents();
     Maybe<Student> getStudentById(long id);
-    Maybe<Student> updateStudent(long id, Student updateStudent);
+    Single<Student> updateStudent(Student requestStudent);
     Completable deleteStudent(long id);
 }

@@ -21,15 +21,11 @@ public class StudentServiceImpl implements IStudentService {
     }
 
     @Override
-    public Single<Student> createStudent(Student student) {
-        logger.info("Create student -->name: {} service ...", student.getName());
-        Single<Student> studentObservable = null;
-        try {
-            studentObservable = repository.save(new Student(null, student.getName(), student.getLastName()));
-        } catch (Exception exception) {
-            logger.error("Error creating new student --> message: {}", exception.getMessage());
-        }
-        return studentObservable;
+    public Single<Student> createStudent(Student requestStudent) {
+        return Single.create(singleEmitter -> {
+            Student newStudent = new Student(null, requestStudent.getName(), requestStudent.getLastName());
+            singleEmitter.onSuccess(repository.save(newStudent).blockingGet());
+        });
     }
 
     @Override
@@ -46,16 +42,24 @@ public class StudentServiceImpl implements IStudentService {
 
     @Override
     public Maybe<Student> getStudentById(long id) {
-        return null;
+        logger.info("Get student by ID: {} service ...", id);
+        return Maybe.create(maybeEmitter -> {
+            maybeEmitter.onSuccess(repository.findById(id).blockingGet());
+        });
     }
 
     @Override
-    public Maybe<Student> updateStudent(long id, Student updateStudent) {
-        return null;
+    public Single<Student> updateStudent(Student requestStudent) {
+        logger.info("Updated student: {}", requestStudent.toString());
+        return Single.create(singleEmitter -> {
+            singleEmitter.onSuccess(repository.save(requestStudent).blockingGet());
+        });
     }
 
     @Override
     public Completable deleteStudent(long id) {
-        return null;
+        logger.info("Delete student by ID: {}", id);
+        return repository.deleteById(id);
     }
 }
+
