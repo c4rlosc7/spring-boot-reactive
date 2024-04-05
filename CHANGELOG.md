@@ -9,3 +9,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [1.0.0] - 2024-04-04
 ### Changed
 - Template spring boot reactive
+
+## [1.1.0] - 2024-04-05
+### Changed
+- Crud student reactive
+
+### Feature
+- Feature create student
+- Feature show all students
+- Feature update student 
+- Feature delete student
